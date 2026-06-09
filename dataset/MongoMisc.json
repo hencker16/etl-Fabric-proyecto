@@ -1,0 +1,17 @@
+{
+	"name": "MongoMisc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BlobStorage_Conn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation"
+			}
+		},
+		"schema": {}
+	}
+}
