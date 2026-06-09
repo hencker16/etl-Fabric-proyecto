@@ -1,0 +1,386 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "practicaFinal9"
+		},
+		"BlobStorage_Conn_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'BlobStorage_Conn'"
+		},
+		"MongoConn_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MongoConn'"
+		},
+		"NeonConn_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'NeonConn'"
+		},
+		"MongoConn_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/amesProperty')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "BlobStorage_Conn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "AmesProperty.csv",
+						"folderPath": "raw",
+						"container": "etl-data"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "PID",
+						"type": "String"
+					},
+					{
+						"name": "Lot Frontage",
+						"type": "String"
+					},
+					{
+						"name": "Lot Area",
+						"type": "String"
+					},
+					{
+						"name": "Street",
+						"type": "String"
+					},
+					{
+						"name": "Alley",
+						"type": "String"
+					},
+					{
+						"name": "Lot Shape",
+						"type": "String"
+					},
+					{
+						"name": "Land Contour",
+						"type": "String"
+					},
+					{
+						"name": "Utilities",
+						"type": "String"
+					},
+					{
+						"name": "Lot Config",
+						"type": "String"
+					},
+					{
+						"name": "Land Slope",
+						"type": "String"
+					},
+					{
+						"name": "Neighborhood",
+						"type": "String"
+					},
+					{
+						"name": "Condition 1",
+						"type": "String"
+					},
+					{
+						"name": "Condition 2",
+						"type": "String"
+					},
+					{
+						"name": "Bldg Type",
+						"type": "String"
+					},
+					{
+						"name": "House Style",
+						"type": "String"
+					},
+					{
+						"name": "Overall Qual",
+						"type": "String"
+					},
+					{
+						"name": "Overall Cond",
+						"type": "String"
+					},
+					{
+						"name": "Year Built",
+						"type": "String"
+					},
+					{
+						"name": "Year Remod/Add",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/BlobStorage_Conn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_amesdbtemp')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "amesdbtemp"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_floordetail')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "floordetail"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_mssubclass')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "mssubclass"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_mszoing')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "mszoning"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_salesproperty')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "saleproperty"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cd_typequeality')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "NeonConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "typequality"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/NeonConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/mongo_bsmt')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MongoConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MongoDbAtlasCollection",
+				"schema": [],
+				"typeProperties": {
+					"collection": "bsmt"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MongoConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/mongo_garage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MongoConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MongoDbAtlasCollection",
+				"schema": [],
+				"typeProperties": {
+					"collection": "garage"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MongoConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/mongo_misc')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MongoConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MongoDbAtlasCollection",
+				"schema": [],
+				"typeProperties": {
+					"collection": "misc"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MongoConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/mongo_pool')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MongoConn",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MongoDbAtlasCollection",
+				"schema": [],
+				"typeProperties": {
+					"collection": "pool"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MongoConn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BlobStorage_Conn')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('BlobStorage_Conn_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MongoConn')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MongoDbAtlas",
+				"typeProperties": {
+					"connectionString": "[parameters('MongoConn_connectionString')]",
+					"database": "[parameters('MongoConn_properties_typeProperties_database')]",
+					"driverVersion": "v2"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/NeonConn')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzurePostgreSql",
+				"version": "1.0",
+				"typeProperties": {
+					"connectionString": "[parameters('NeonConn_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
