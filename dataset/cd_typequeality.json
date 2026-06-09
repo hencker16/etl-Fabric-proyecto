@@ -1,0 +1,17 @@
+{
+	"name": "cd_typequeality",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NeonConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "typequality"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

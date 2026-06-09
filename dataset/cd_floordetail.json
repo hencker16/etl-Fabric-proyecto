@@ -1,0 +1,17 @@
+{
+	"name": "cd_floordetail",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NeonConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "floordetail"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,15 @@
+{
+	"name": "practicaFinal9",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4c838289-c1ee-479a-8534-c6602e002150",
+		"tenantId": "e994072b-523e-4bfe-86e2-442c5e10b244"
+	}
+}

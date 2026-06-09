@@ -1,0 +1,17 @@
+{
+	"name": "cd_mszoing",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NeonConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "mszoning"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

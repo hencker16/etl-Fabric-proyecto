@@ -1,0 +1,17 @@
+{
+	"name": "cd_salesproperty",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NeonConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "saleproperty"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

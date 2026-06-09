@@ -1,0 +1,17 @@
+{
+	"name": "cd_amesdbtemp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NeonConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "amesdbtemp"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
