@@ -1,0 +1,20 @@
+{
+	"name": "MongoBsmt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BlobStorage_Conn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "MongoBsmt",
+				"folderPath": "output",
+				"container": "adls-container-final9"
+			}
+		},
+		"schema": {}
+	}
+}

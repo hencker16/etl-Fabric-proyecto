@@ -1,0 +1,20 @@
+{
+	"name": "MongoGarage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BlobStorage_Conn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "MongoGarage",
+				"folderPath": "output",
+				"container": "adls-container-final9"
+			}
+		},
+		"schema": {}
+	}
+}
